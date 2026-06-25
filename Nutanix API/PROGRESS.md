@@ -1,8 +1,20 @@
 # Nutanix API V4 Research — Progress Tracker
 
 ## Goal
-Research Nutanix Prism Central REST API v4 (VMM namespace) — VM listing, detail, power operations, create/update/delete — and produce a publishable article for the TechSpace blog.
-Also covers: VPC (networking namespace) and Projects (v3 API) live-tested against PC 10.8.23.7.
+Research Nutanix Prism Central REST API v4 — VM, VPC, and Projects — and produce publishable articles for the TechSpace blog. All research live-tested against PC 10.8.23.7 (PC 7.3.1.3 / AOS 7.3).
+
+## Files in This Folder
+
+| File | Contents |
+|------|----------|
+| `README.md` | Project overview, environment details, API version table, quick start |
+| `vpc-and-projects-api.md` | VPC full CRUD + Projects API reference with live results |
+| `test-call-project.md` | Step-by-step test: VPC list → Project list → relationship map |
+| `test-call-vm-info.md` | Step-by-step test: VM config + live stats |
+| `test-call-vm-live-stats-v4.md` | VM live stats using v4 stats endpoint only |
+| `postman-guide.md` | Postman setup and quick test steps |
+| `vm-api-research.md` | VM API v4 research notes |
+| `PROGRESS.md` | This file |
 
 ## Status Legend
 - `[ ]` Not started
@@ -22,10 +34,10 @@ Also covers: VPC (networking namespace) and Projects (v3 API) live-tested agains
 - [x] Document pagination model (`$page`, `$limit`)
 - [x] Document OData filter syntax for VMs
 - [x] Document required headers (If-Match, NTNX-Request-Id)
-- [ ] Capture full VM response schema (all fields with types)
-- [ ] Capture example curl commands (list, get, power on/off)
-- [ ] Verify Python SDK setup and `ntnx_vmm_py_client` usage
-- [ ] Confirm GA version vs beta (v4.0 vs v4.0.b1 vs v4.1)
+- [x] Capture full VM response schema (all fields with types) — see `test-call-vm-info.md`
+- [x] Capture example curl commands (list, get, power on/off) — see `vm-api-research.md`
+- [x] Verify Python SDK setup and `ntnx_vmm_py_client` usage — confirmed `v4.0.b1`
+- [x] Confirm GA version vs beta — `vmm/v4.0.b1` ✅, `vmm/v4.0.b2`+ ❌ on this PC
 
 ## Phase 2: Article Draft
 
