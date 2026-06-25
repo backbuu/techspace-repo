@@ -9,7 +9,7 @@ Track progress through phases and modules. Update as tasks complete.
 
 ## Phase 1: Core Blog
 
-- [ ] Module 1: Project Shell — Auth, DB schema, backend scaffold, frontend scaffold
+- [x] Module 1: Project Shell — Auth, DB schema, backend scaffold, frontend scaffold
 - [ ] Module 2: Article Listing + Reading — Public list, post detail, markdown, TOC
 - [ ] Module 3: Author CMS — Create/edit/delete posts, cover images, draft/published
 - [ ] Module 4: Search — Full-text search, highlighted excerpts, tag/category filter
