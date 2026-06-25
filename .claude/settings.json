@@ -1,0 +1,39 @@
+{
+    "permissions": {
+      "allow": [
+        "WebFetch(domain:*)",
+        "Bash(npm run:*)",
+        "Bash(npm test:*)",
+        "Bash(npm install:*)",
+        "Bash(npx:*)",
+        "Bash(pnpm:*)",
+        "Bash(yarn:*)",
+        "Bash(bun:*)",
+        "Bash(python3:*)",
+        "Bash(python:*)",
+        "Bash(pip install:*)",
+        "Bash(pip3 install:*)",
+        "Bash(uv:*)",
+        "Bash(git diff:*)",
+        "Bash(git status:*)",
+        "Bash(git log:*)",
+        "Bash(git add:*)",
+        "Bash(git commit:*)",
+        "Bash(git checkout:*)",
+        "Bash(git branch:*)"
+      ],
+      "deny": [
+        "Bash(sudo:*)",
+        "Bash(docker:*)",
+        "Bash(rm -rf:*)",
+        "Read(**/.env)",
+        "Read(**/.env.local)",
+        "Read(**/.env.production)",
+        "Read(~/.ssh/**)"
+      ],
+      "ask": [
+        "Bash(git push:*)"
+      ],
+      "defaultMode": "acceptEdits"
+    }
+  }
