@@ -1,0 +1,298 @@
+{
+    "data": {
+        "$reserved": {
+            "$fv": "v4.r1"
+        },
+        "$objectType": "vmm.v4.ahv.config.Vm",
+        "extId": "c90699b2-ec53-4800-93e7-4cf23024b75e",
+        "createTime": "2026-06-12T10:03:18.657232Z",
+        "updateTime": "2026-06-23T08:19:44.347663Z",
+        "isLiveMigrateCapable": true,
+        "isCrossClusterMigrationInProgress": false,
+        "bootConfig": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.LegacyBoot",
+            "bootOrder": [
+                "CDROM",
+                "DISK",
+                "NETWORK"
+            ]
+        },
+        "name": "autoad",
+        "numSockets": 2,
+        "numCoresPerSocket": 1,
+        "numThreadsPerCore": 1,
+        "numNumaNodes": 0,
+        "memorySizeBytes": 4294967296,
+        "isVcpuHardPinningEnabled": false,
+        "isCpuPassthroughEnabled": false,
+        "isMemoryOvercommitEnabled": false,
+        "isGpuConsoleEnabled": false,
+        "isCpuHotplugEnabled": true,
+        "isScsiControllerEnabled": true,
+        "generationUuid": "67604c57-097e-4f77-acec-ebd4791f94a7",
+        "biosUuid": "c90699b2-ec53-4800-93e7-4cf23024b75e",
+        "project": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.ProjectReference",
+            "extId": "f1eebb84-19ad-4138-8360-a79b41478dcc"
+        },
+        "ownershipInfo": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.OwnershipInfo",
+            "owner": {
+                "$reserved": {
+                    "$fv": "v4.r1"
+                },
+                "$objectType": "vmm.v4.ahv.config.OwnerReference",
+                "extId": "00000000-0000-0000-0000-000000000000"
+            }
+        },
+        "host": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.HostReference",
+            "extId": "a1118652-9ff0-4ee5-9475-6ecf4352e617"
+        },
+        "cluster": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.ClusterReference",
+            "extId": "0006540b-48a3-ade0-50cf-3cecef82a4d9"
+        },
+        "hardwareClockTimezone": "UTC",
+        "isBrandingEnabled": true,
+        "isVgaConsoleEnabled": true,
+        "machineType": "PC",
+        "powerState": "ON",
+        "vtpmConfig": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.VtpmConfig",
+            "isVtpmEnabled": false
+        },
+        "isAgentVm": false,
+        "apcConfig": {
+            "$reserved": {
+                "$fv": "v4.r1"
+            },
+            "$objectType": "vmm.v4.ahv.config.ApcConfig",
+            "isApcEnabled": false
+        },
+        "disks": [
+            {
+                "$reserved": {
+                    "$fv": "v4.r1"
+                },
+                "$objectType": "vmm.v4.ahv.config.Disk",
+                "extId": "4993accc-8aa7-40a2-bd87-7bf7317f1790",
+                "backingInfo": {
+                    "diskExtId": "4993accc-8aa7-40a2-bd87-7bf7317f1790",
+                    "isMigrationInProgress": false,
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.VmDisk",
+                    "diskSizeBytes": 53687091200,
+                    "storageContainer": {
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.VmDiskContainerReference",
+                        "extId": "5ff402fe-21c1-4c9a-84fc-adb8f214ca5e"
+                    },
+                    "dataSource": {
+                        "reference": {
+                            "$reserved": {
+                                "$fv": "v4.r1"
+                            },
+                            "$objectType": "vmm.v4.ahv.config.ImageReference",
+                            "imageExtId": "a1913997-493e-4f98-b9f9-34565cbed8e0"
+                        },
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.DataSource"
+                    }
+                },
+                "diskAddress": {
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.DiskAddress",
+                    "busType": "SCSI",
+                    "index": 0
+                }
+            }
+        ],
+        "nics": [
+            {
+                "$reserved": {
+                    "$fv": "v4.r1"
+                },
+                "$objectType": "vmm.v4.ahv.config.Nic",
+                "extId": "8ae9811d-080f-4ec6-86a6-920fd1e8c119",
+                "nicBackingInfo": {
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.VirtualEthernetNic",
+                    "macAddress": "50:6b:8d:c2:3b:9d",
+                    "isConnected": true,
+                    "numQueues": 1
+                },
+                "nicNetworkInfo": {
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.VirtualEthernetNicNetworkInfo",
+                    "nicType": "NORMAL_NIC",
+                    "subnet": {
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.SubnetReference",
+                        "extId": "75f95916-f0b9-4439-8617-a93ba454c853"
+                    },
+                    "vlanMode": "ACCESS",
+                    "ipv4Config": {
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.Ipv4Config",
+                        "ipAddress": {
+                            "$reserved": {
+                                "$fv": "v1.r0"
+                            },
+                            "$objectType": "common.v1.config.IPv4Address",
+                            "value": "10.8.23.6",
+                            "prefixLength": 32
+                        }
+                    }
+                },
+                "backingInfo": {
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.EmulatedNic",
+                    "macAddress": "50:6b:8d:c2:3b:9d",
+                    "isConnected": true,
+                    "numQueues": 1
+                },
+                "networkInfo": {
+                    "$reserved": {
+                        "$fv": "v4.r1"
+                    },
+                    "$objectType": "vmm.v4.ahv.config.NicNetworkInfo",
+                    "nicType": "NORMAL_NIC",
+                    "subnet": {
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.SubnetReference",
+                        "extId": "75f95916-f0b9-4439-8617-a93ba454c853"
+                    },
+                    "vlanMode": "ACCESS",
+                    "ipv4Config": {
+                        "$reserved": {
+                            "$fv": "v4.r1"
+                        },
+                        "$objectType": "vmm.v4.ahv.config.Ipv4Config",
+                        "ipAddress": {
+                            "$reserved": {
+                                "$fv": "v1.r0"
+                            },
+                            "$objectType": "common.v1.config.IPv4Address",
+                            "value": "10.8.23.6",
+                            "prefixLength": 32
+                        }
+                    }
+                }
+            }
+        ],
+        "protectionType": "UNPROTECTED"
+    },
+    "$reserved": {
+        "$fv": "v4.r1"
+    },
+    "$objectType": "vmm.v4.ahv.config.GetVmApiResponse",
+    "metadata": {
+        "flags": [
+            {
+                "$reserved": {
+                    "$fv": "v1.r0"
+                },
+                "$objectType": "common.v1.config.Flag",
+                "name": "hasError",
+                "value": false
+            },
+            {
+                "$reserved": {
+                    "$fv": "v1.r0"
+                },
+                "$objectType": "common.v1.config.Flag",
+                "name": "isPaginated",
+                "value": false
+            },
+            {
+                "$reserved": {
+                    "$fv": "v1.r0"
+                },
+                "$objectType": "common.v1.config.Flag",
+                "name": "isTruncated",
+                "value": false
+            }
+        ],
+        "$reserved": {
+            "$fv": "v1.r0"
+        },
+        "$objectType": "common.v1.response.ApiResponseMetadata",
+        "links": [
+            {
+                "$reserved": {
+                    "$fv": "v1.r0"
+                },
+                "$objectType": "common.v1.response.ApiLink",
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e",
+                "rel": "self"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/cd-roms",
+                "rel": "cd-roms"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/disks",
+                "rel": "disks"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/nics",
+                "rel": "nics"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/gpus",
+                "rel": "gpus"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/serial-ports",
+                "rel": "serial-ports"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/pcie-devices",
+                "rel": "pcie-devices"
+            },
+            {
+                "href": "https://10.8.23.7:9440/api/vmm/v4.0/ahv/config/vms/c90699b2-ec53-4800-93e7-4cf23024b75e/guest-tools",
+                "rel": "guest-tools"
+            }
+        ]
+    }
+}
