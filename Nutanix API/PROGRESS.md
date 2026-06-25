@@ -2,6 +2,7 @@
 
 ## Goal
 Research Nutanix Prism Central REST API v4 (VMM namespace) — VM listing, detail, power operations, create/update/delete — and produce a publishable article for the TechSpace blog.
+Also covers: VPC (networking namespace) and Projects (v3 API) live-tested against PC 10.8.23.7.
 
 ## Status Legend
 - `[ ]` Not started
@@ -60,9 +61,44 @@ Research Nutanix Prism Central REST API v4 (VMM namespace) — VM listing, detai
 
 ---
 
+## Phase 4: VPC + Projects Live Testing
+
+- [x] Confirm correct VPC endpoint path (`/api/networking/v4.0/config/vpcs` — NOT `v4.0.a1`)
+- [x] List VPCs — returns **VPN-for-Test** (`extId: 71f5d1e9-e7eb-4d2d-a3cb-d371d4f8310b`)
+- [x] Confirm VPC type: REGULAR, external IPs: `10.8.23.23/24`, gateway nodes: `10.8.23.25/26`
+- [x] Test v4 IAM projects endpoint (`/api/iam/v4.0/authz/projects`) — returns garbled response on this PC version
+- [x] Confirm v3 fallback works: `POST /api/nutanix/v3/projects/list` ✅
+- [x] Found 2 projects: **Project-VPC** (linked to VPN-for-Test VPC) and **NTNX** (no VPC)
+- [x] Confirm VPC↔Project relationship via `vpc_reference_list` in v3 project response
+
+### Live Test Results (2026-06-25, PC 10.8.23.7)
+
+| API | Endpoint | Status |
+|-----|----------|--------|
+| VPC List | `GET /api/networking/v4.0/config/vpcs` | ✅ Working |
+| VPC v4.0.a1 | `GET /api/networking/v4.0.a1/config/vpcs` | ❌ 404 |
+| Projects v4 | `GET /api/iam/v4.0/authz/projects` | ❌ Garbled response |
+| Projects v3 | `POST /api/nutanix/v3/projects/list` | ✅ Working |
+
+### VPC Found
+
+| Name | extId | Type | External IPs |
+|------|-------|------|-------------|
+| VPN-for-Test | `71f5d1e9-e7eb-4d2d-a3cb-d371d4f8310b` | REGULAR | `10.8.23.23`, `10.8.23.24` |
+
+### Projects Found
+
+| Name | UUID | VPC Linked |
+|------|------|-----------|
+| Project-VPC | `e15d97b2-1b6b-43b3-829c-fa94f433a7a0` | VPN-for-Test ✅ |
+| NTNX | `e68b227a-8358-43cf-8697-8028e337b299` | None |
+
+---
+
 ## Open Questions
 
 1. Is `v4.0.b1` still the latest stable, or has `v4.1` reached GA?
 2. Full VM response schema — need a live cluster or OpenAPI spec to confirm all fields.
 3. Rate limits — not publicly documented; needs confirmation from Nutanix support or community.
 4. Does `$filter` support nested fields (e.g., `cluster/extId eq '...'`)?
+5. When will `iam/v4.0/authz/projects` be stable on this PC version?

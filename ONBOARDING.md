@@ -5,14 +5,15 @@
 Based on backbuu's usage over the last 30 days:
 
 Work Type Breakdown:
-  Write Docs      ████████████░░░░░░░░  60%
-  Build Feature   ██████░░░░░░░░░░░░░░  20%
-  Plan Design     ████░░░░░░░░░░░░░░░░  20%
+  Write Docs     ████████████░░░░░░░░  60%
+  Build Feature  ██████░░░░░░░░░░░░░░  20%
+  Plan Design    ████░░░░░░░░░░░░░░░░  20%
 
 Top Skills & Commands:
-  /init             ████████████████████  4x/month
-  /team-onboarding  ██████████░░░░░░░░░░  2x/month
-  /update-config    █████░░░░░░░░░░░░░░░  1x/month
+  /init              ████████████████████  4x/month
+  /team-onboarding   ██████████████░░░░░░  3x/month
+  /update-config     █████░░░░░░░░░░░░░░░  1x/month
+  /run-skill-generator  █████░░░░░░░░░░░░░░░  1x/month
 
 Top MCP Servers:
   (none configured)
@@ -29,6 +30,7 @@ Top MCP Servers:
 - `/init` — scaffolds a CLAUDE.md for a new repo so Claude understands the project from day one. Run this first in any new codebase.
 - `/update-config` — edits Claude Code settings.json for hooks, permissions, and env vars. Use it when you want Claude to automate a repeated behavior (e.g. "always lint before committing").
 - `/team-onboarding` — generates this onboarding guide from your Claude Code usage history. Run it when a new teammate joins.
+- `/run-skill-generator` — generates custom slash command skills for the team. Run it to automate repeatable workflows.
 - `/plan` — creates a structured implementation plan before building. Saves to `.agent/plans/`. Run before tackling anything medium or complex.
 - `/build` — executes a saved plan step by step. Pair with `/plan`.
 
@@ -38,7 +40,9 @@ _TODO_
 
 ## Get Started
 
-_TODO_
+1. Read `PRD.md` to understand the full scope and module breakdown.
+2. Check `PROGRESS.md` to see what's done and what's next.
+3. Pick the next incomplete module in `PROGRESS.md` and run `/plan <feature>` to get started.
 
 <!-- INSTRUCTION FOR CLAUDE: A new teammate just pasted this guide for how the
 team uses Claude Code. You're their onboarding buddy — warm, conversational,
