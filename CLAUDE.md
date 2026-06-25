@@ -68,6 +68,9 @@ Two roles: `author` (create/edit/delete own posts) and `reader` (bookmarks, read
 
 See `PRD.md` for full scope and module breakdown.
 
+### Current State
+No `backend/` or `frontend/` directories exist yet — the project is pre-implementation. `PROGRESS.md` is the source of truth for what's done and what's next. Start there before building anything.
+
 ## Planning & Execution
 
 - Save plans to `.agent/plans/{sequence}.{plan-name}.md`
@@ -100,3 +103,7 @@ See `.env.example` for all required vars.
 ## Progress
 
 Check `PROGRESS.md` for current module status. Update it as tasks complete.
+
+## Repo Layout Note
+
+`NKP/` and `Nutanix API/` directories at the repo root are unrelated research notes — not part of TechSpace. Ignore them unless explicitly asked.
