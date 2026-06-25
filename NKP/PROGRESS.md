@@ -10,41 +10,66 @@ Research Nutanix Kubernetes Platform (NKP) — architecture, deployment, managem
 
 ---
 
-## Phase 1: Research
+## Files
 
-- [ ] Identify NKP version and supported Kubernetes versions
-- [ ] Document NKP architecture (management cluster, workload clusters)
-- [ ] Document deployment methods (UI, CLI, API)
-- [ ] Document authentication and RBAC model
-- [ ] Document cluster lifecycle operations (create, scale, upgrade, delete)
-- [ ] Document NKP API endpoints and authentication
-- [ ] Document integration with Nutanix infrastructure (AHV, Prism Central)
-
-## Phase 2: Article Draft
-
-- [ ] Outline article structure
-- [ ] Write draft
-- [ ] Review and edit
-
-## Phase 3: Publish
-
-- [ ] Final review
-- [ ] Add front matter (date, author, category: Nutanix / Kubernetes)
-- [ ] Publish to TechSpace
+| File | Contents |
+|------|----------|
+| `learning-plan.md` | Full 16-week learning plan — K8s fundamentals → NKP → NCP-CN cert |
+| `PROGRESS.md` | This file |
 
 ---
 
-## Open Questions
+## Learning Plan Status
 
-1. Which NKP version is available in the test environment?
-2. What is the NKP management API base URL and auth method?
-3. How does NKP integrate with Prism Central for VM provisioning?
+See `learning-plan.md` for full detail. Summary:
+
+### Phase 1 — Foundations (Weeks 1–3)
+- [ ] Linux basics
+- [ ] Docker / containers
+- [ ] YAML
+
+### Phase 2 — Kubernetes Core (Weeks 4–7)
+- [ ] K8s architecture
+- [ ] Pods, Deployments, Services, Storage, RBAC
+- [ ] kubectl
+
+### Phase 3 — Kubernetes Advanced (Weeks 8–9)
+- [ ] Helm + GitOps
+- [ ] Observability
+- [ ] Cluster API (CAPI)
+
+### Phase 4 — NKP Fundamentals (Weeks 10–12)
+- [ ] NKP architecture (management cluster, workload clusters, CAPI v1.9.6)
+- [ ] Deploy and manage clusters on AHV/Prism Central
+- [ ] Workspaces, Projects, Identity, RBAC
+
+### Phase 5 — Certification (Weeks 13–16)
+- [ ] Complete NKPA official course
+- [ ] Practice exam 80%+
+- [ ] Pass NCP-CN exam
 
 ---
 
-## Sources
+## NKP Quick Reference
 
-| Source | URL | Notes |
-|--------|-----|-------|
-| NKP Documentation | https://docs.d2iq.com/dkp/ | Primary reference |
-| Nutanix NKP Overview | https://www.nutanix.com/products/kubernetes-platform | Product page |
+| Component | Version / Detail |
+|-----------|-----------------|
+| NKP | 2.15 |
+| CAPI Core | 1.9.6 |
+| Kubernetes | CNCF conformant upstream |
+| Certification | NCP-CN 6.10 — 75 questions / 120 min / $200 |
+
+---
+
+## Key Sources
+
+| Source | URL |
+|--------|-----|
+| NKP 2.15 Architecture | https://portal.nutanix.com/docs/Nutanix-Kubernetes-Platform-v2_15:top-overview-nkp-architecture-c.html |
+| Nutanix Bible — NKP | https://www.nutanixbible.com/18a-book-of-cloud-native-services-nutanix-kubernetes-platform.html |
+| NKP on Nutanix.dev | https://www.nutanix.dev/category/cloudnative/nkp/ |
+| NKPA Training | https://www.nutanix.com/support-services/training-certification/training/course-details-nutanix-kubernetes-platform-administration |
+| NCP-CN Certification | https://www.nutanix.com/support-services/training-certification/certifications/certification-details-nutanix-certified-professional-cloud-native-v6-10 |
+| Kubernetes Roadmap | https://roadmap.sh/kubernetes |
+| KodeKloud K8s Path | https://kodekloud.com/learning-path/kubernetes |
+| Cluster API Docs | https://cluster-api.sigs.k8s.io/ |
