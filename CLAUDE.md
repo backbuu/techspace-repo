@@ -1,125 +1,152 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-TechSpace is a tech blog and content platform. Readers can browse articles, filter by category/tag, and bookmark posts. Authors publish via a markdown-based CMS backed by Supabase. A FastAPI backend handles auth, content API, and search.
+RAG app with chat (default) and document ingestion interfaces. Config via env vars, no admin UI.
 
 ## Stack
 - Frontend: React + TypeScript + Vite + Tailwind + shadcn/ui
 - Backend: Python + FastAPI
-- Database: Supabase (Postgres, Auth, Storage, Full-Text Search)
-- Content: Markdown files rendered client-side (react-markdown + remark-gfm)
-- Search: Supabase full-text search (tsvector) + pgvector for semantic search (Phase 2)
-- Observability: LangSmith (Phase 2, AI features only)
-
-## Dev Commands
-
-```bash
-# Backend (from repo root)
-cd backend && python -m venv venv          # first time only
-source backend/venv/bin/activate
-pip install -r backend/requirements.txt    # first time / after dep changes
-uvicorn main:app --reload --port 8000
-
-# Frontend (from repo root)
-cd frontend && npm install                 # first time / after dep changes
-npm run dev                                # starts on http://localhost:5173
-
-# Type-check frontend
-cd frontend && npm run build
-```
-
-**Env vars:** backend reads from `backend/.env`; frontend reads from `frontend/.env.local`. Copy `.env.example` for the full list.
-
-## Database Schema
-Migrations live in `supabase/migrations/` but are **applied manually** via the Supabase SQL editor — there is no `supabase db push` step. Run new `.sql` files in the Supabase dashboard when adding tables.
-
-Key schema facts:
-- `posts.search_vector` (tsvector) is auto-populated by a trigger on insert/update — never set it manually.
-- `posts.reading_time_minutes` is also computed by that same trigger (200 wpm).
-- `profiles` rows are auto-created via an `on_auth_user_created` trigger on `auth.users`.
-- `database.py` uses the **service role key** (bypasses RLS) — FastAPI is the authority layer, not RLS, for backend writes.
+- Database: Supabase (Postgres, pgvector, Auth, Storage, Realtime)
+- LLM: OpenAI Responses API (Module 1), any OpenAI-compatible endpoint - OpenRouter, Ollama, LM Studio (Module 2+)
+- Doc processing: Docling (Module 5+)
+- Observability: LangSmith
 
 ## Rules
-- Python backend must use a `venv` virtual environment (NOT .venv)
-- No LangChain, no LangGraph — raw SDK calls only
-- Use Pydantic for all request/response schemas
-- All tables need Row-Level Security
-- Stream search results where applicable via SSE
-- No admin UI — content management via Supabase dashboard + markdown files
+- Python backend must use a `venv` virtual environment
+- No LangChain, no LangGraph - raw SDK calls only (the LangSmith SDK for tracing is allowed)
+- Use Pydantic for structured LLM outputs
+- All tables need Row-Level Security - users only see their own data
+- Stream chat responses via SSE
+- Use Supabase Realtime for ingestion status updates
+- Module 2+ uses stateless completions - store and send chat history yourself
+- Ingestion is manual file upload only - no connectors or automated pipelines
 
 ## Engineering Principles
 
+Behavioral guidelines to reduce common coding mistakes. These bias toward caution over speed - for trivial tasks, use judgment.
+
 ### 1. Think Before Coding
-State assumptions explicitly. Ask if multiple interpretations exist. Push back when a simpler approach works.
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
 ### 2. Simplicity First
-Minimum code that solves the problem. No speculative abstractions.
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
 ### 3. Surgical Changes
-Touch only what you must. Match existing style. Don't refactor unrelated code.
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
 
 ### 4. Goal-Driven Execution
-Define verifiable success criteria before implementing. Loop until validated.
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
 ## Planning
-- Save all plans to `.agent/plans/`
-- Naming convention: `{sequence}.{plan-name}.md`
-- Include complexity indicator: ✅ Simple / ⚠️ Medium / 🔴 Complex
-- Each task must have at least one validation test
+- Save all plans to `.agent/plans/` folder
+- Naming convention: `{sequence}.{plan-name}.md` (e.g., `1.auth-setup.md`, `2.document-ingestion.md`)
+- Plans should be detailed enough to execute without ambiguity
+- Each task in the plan must include at least one validation test to verify it works (see Goal-Driven Execution above)
+- Assess complexity and single-pass feasibility - can an agent realistically complete this in one go?
+- Include a complexity indicator at the top of each plan:
+  - ✅ **Simple** - Single-pass executable, low risk
+  - ⚠️ **Medium** - May need iteration, some complexity
+  - 🔴 **Complex** - Break into sub-plans before executing
 
 ## Development Flow
-1. **Plan** — save to `.agent/plans/`
-2. **Build** — minimal, surgical implementation
-3. **Validate** — test against acceptance criteria
-4. **Iterate** — fix until criteria pass
+1. **Plan** - Create a detailed plan and save it to `.agent/plans/`. Surface assumptions and tradeoffs before committing to an approach
+2. **Build** - Execute the plan to implement the feature. Keep changes minimal and surgical
+3. **Validate** - Test and verify the implementation works correctly. Use browser testing where applicable via an appropriate MCP
+4. **Iterate** - Fix any issues found during validation. Loop until success criteria are verified
 
-## Architecture
 
-```
-frontend/                  React + Vite SPA
-  src/
-    components/
-      ui/                  shadcn/ui primitives
-      layout/              Header, Footer, Sidebar
-      blog/                PostCard, PostList, TagBadge, TOC
-    pages/                 Home, PostDetail, Category, Search, Bookmarks
-    hooks/                 useAuth, usePosts, useBookmarks, useSearch
-    lib/                   supabase client, api helpers
+### Verify Services
+- Backend health: `curl http://localhost:8000/health` should return `{"status":"ok"}`
+- Frontend: Open http://localhost:5173 in browser
 
-backend/                   FastAPI
-  main.py                  Entry point, route registration, CORS
-  auth.py                  JWT verification middleware
-  database.py              Supabase client singleton (service role key)
-  config.py                Env var loading
-  routers/                 Empty — add posts.py, tags.py, search.py here
-  services/                Empty — add search.py, storage.py here
-  models/                  Empty — add Pydantic schemas here
-  venv/                    Python virtual environment (NOT .venv)
-
-.agent/
-  plans/                   Implementation plans
-  validation/              Test suite and fixtures
-```
-
-Data flows:
-- **Read (public):** Frontend → FastAPI `/posts` → Supabase (no auth required for published posts)
-- **Write (author):** Frontend → FastAPI (JWT verified) → Supabase (RLS enforces author_id)
-- **Search:** Frontend → FastAPI `/search` → tsvector full-text query → ranked results
-- **Bookmarks:** Frontend → Supabase directly via anon key + user JWT (RLS enforces user_id)
-- **Images:** Author upload → FastAPI → Supabase Storage (public bucket for cover images)
-
-## Auth Details
-
-**Backend (`auth.py`):** JWT verification calls `admin.auth.get_user(token)` via the Supabase admin client — it does **not** decode the JWT locally with a secret. After verifying, it fetches `profiles.role` to attach the role to the user dict. Use `Depends(get_current_user)` for any authenticated route, `Depends(require_author)` to gate author-only endpoints.
-
-**Frontend (`useAuth`):** Returns `{ session, user, role, loading }`. `role` is fetched from `profiles` after each auth state change — it's `'reader' | 'author' | null`. `ProtectedRoute` wraps pages that need auth; pass `requireRole="author"` to also gate on role.
 
 ## Test Credentials
-Test account credentials live in `backend/.env` — never hardcode here.
+Test account credentials live in `backend/.env` (not committed) — never hardcode them here or in scripts. Read them from these env vars:
 
-- **Author account:** `TEST_AUTHOR_EMAIL` / `TEST_AUTHOR_PASSWORD`
-- **Reader account:** `TEST_READER_EMAIL` / `TEST_READER_PASSWORD`
+- **Primary test user:** `TEST_USER_EMAIL` / `TEST_USER_PASSWORD`
+- **Second user (data-isolation tests):** `TEST_USER2_EMAIL` / `TEST_USER2_PASSWORD`
+
+Example (load into a shell for validation/curl):
+```bash
+set -a; source backend/.env; set +a
+# then use "$TEST_USER_EMAIL" / "$TEST_USER_PASSWORD"
+```
+See `backend/.env.example` for the placeholder entries.
+
+
+## Validation Suite
+
+The test suite lives at `.agent/validation/full-suite.md`. **If it does not
+exist yet, create it** (with a Results Summary table at the bottom).
+
+**When building or modifying any module, you MUST update the validation suite:**
+1. Add a test case to `full-suite.md` for the new/changed module
+   (format: `### TEST-{n}: Description` with Steps and Acceptance Criteria;
+   continue numbering from the highest existing TEST id)
+1. Add new API tests (curl-based) for any new or modified endpoints
+2. Add new E2E tests (Playwright MCP) for any new UI flows
+2. Execute the test (run the module script in `venv` and check the
+   acceptance criteria — e.g. loss decreases, output shapes correct,
+   checkpoint saved)
+3. Record pass/fail in the Results Summary table at the bottom of `full-suite.md` with new section counts
+6. Maintain test ordering - tests that create data must run before tests that read it
+4. Add fixture files to `.agent/validation/fixtures/` if tests need sample data
+4. Update PROGRESS.md: mark the module complete **and note its test result**
+   (e.g. `[x] Module 5: ... — TEST-5 ✅ passed`)
+7. Add cleanup steps for any new test data created
+
+**Test ID conventions:**
+- API tests: `API-{next-number}` (continue from highest existing)
+- E2E tests: `E2E-{next-number}` (continue from highest existing)
+
+A module is not "complete" until its test has been executed and passed.
 
 ## Progress
-Check PROGRESS.md for current phase status. Update as tasks complete.
+Check PROGRESS.md for current module status. Update it as you complete tasks.
+
+# Notes
+
+The Python Virtual Environment is located in the folder /backend/venv/ NOT .venv
