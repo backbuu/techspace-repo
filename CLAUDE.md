@@ -66,6 +66,13 @@ Two roles: `author` (create/edit/delete own posts) and `reader` (bookmarks, read
 - **Phase 1** (Modules 1–5): Core blog — auth, article CRUD, search, reader features
 - **Phase 2** (Modules 6–7): AI — pgvector semantic search, AI writing assistant
 
+### Out of Scope
+- No comments or community features
+- No paid subscriptions / paywalls
+- No multi-author editorial workflow
+- Email auth only — no social login (GitHub, Google)
+- No mobile app
+
 See `PRD.md` for full scope and module breakdown.
 
 ### Current State
@@ -106,4 +113,4 @@ Check `PROGRESS.md` for current module status. Update it as tasks complete.
 
 ## Repo Layout Note
 
-`NKP/` and `Nutanix API/` directories at the repo root are unrelated research notes — not part of TechSpace. Ignore them unless explicitly asked.
+`NKP/`, `Nutanix API/`, and `Nutanix Training/` directories at the repo root are unrelated research notes — not part of TechSpace. Ignore them unless explicitly asked.
