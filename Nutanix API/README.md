@@ -47,18 +47,18 @@ Hands-on test scripts and reference docs for the Nutanix REST API v4, built and 
 | File | What it covers |
 |------|----------------|
 | [api-test-results.md](./api-test-results.md) | T-01 to T-03: connectivity, list VMs (48), get VM by extId |
-| [test-call-project.md](./test-call-project.md) | VPC list → Project list → VPC↔Project relationship map |
-| [test-call-vm-info.md](./test-call-vm-info.md) | VM name, IP, CPU, Memory, Disk, Network, Power state |
-| [test-call-vm-live-stats-v4.md](./test-call-vm-live-stats-v4.md) | Live stats discovery — version probe, working endpoint found |
 | [test-summary.md](./test-summary.md) | Summary of all early tests with confirmed behaviours |
+| [test-call-vm-info.md](./test-call-vm-info.md) | VM name, IP, CPU, Memory, Disk, Network, Power state |
+| [test-call-vm-live-stats-v4.md](./test-call-vm-live-stats-v4.md) | Live stats version probe — how `vmm/v4.1` was found |
+| [test-call-project.md](./test-call-project.md) | VPC list → Project list → VPC↔Project relationship map |
 | [vm-live-stats.md](./vm-live-stats.md) | 51 VMs live stats via v3/groups — sorted by CPU usage |
-| [vm-stats-v4-research.md](./vm-stats-v4-research.md) | Full discovery of `vmm/v4.1` working stats; all 40+ stat fields documented |
+| [vm-stats-v4-research.md](./vm-stats-v4-research.md) | Full discovery of `vmm/v4.1` stats — all 40+ fields with units and conversion |
 
 ### Monitoring Integration
 
 | File | What it covers |
 |------|----------------|
-| [zabbix-monitoring-research.md](./zabbix-monitoring-research.md) | Zabbix integration design, rate limits, 6 test cases (ZBX-T01–T06), alert thresholds |
+| [zabbix-monitoring-research.md](./zabbix-monitoring-research.md) | Zabbix design, rate limits, 6 test cases (ZBX-T01–T06), alert thresholds, integration options |
 
 ### Progress & Tracking
 
@@ -74,11 +74,12 @@ Hands-on test scripts and reference docs for the Nutanix REST API v4, built and 
 | [vm-detail-autoad.json](./vm-detail-autoad.json) | Single VM full object (`autoad`) |
 | [vm-stats-v4-raw.json](./vm-stats-v4-raw.json) | Raw `vmm/v4.1` time-series stats response |
 
-### Condensed Test Report
+### result-test/ (Condensed Reports)
 
-| Folder | Description |
-|--------|-------------|
-| [result-test/](./result-test/) | Single-file report: 7 tests, curl commands, validation scripts, gotchas |
+| File | Description |
+|------|-------------|
+| [result-test/nutanix-api-v4-test-report.md](./result-test/nutanix-api-v4-test-report.md) | All-in-one: 7 tests, curl commands, validation scripts, gotchas table |
+| [result-test/vpc-project-api-summary.md](./result-test/vpc-project-api-summary.md) | VPC↔Project solution summary — correct API calls and working workarounds |
 
 ---
 
